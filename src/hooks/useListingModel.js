@@ -1,19 +1,16 @@
 import {useEffect} from 'react';
 import {getUserListingModel} from '../api';
+import {useDispatch, useSelector} from 'react-redux';
+import {getCommentListing} from '../redux/actions/CommentAction';
 
 const useListingModel = () => {
-  const fetchData = async () => {
-    try {
-      let resp = await getUserListingModel();
-      console.log('respresp', resp);
-    } catch (error) {
-      console.log('Errror', error);
-    }
-  };
+  const dispatch = useDispatch();
+  const state = useSelector(e => e.commentListing);
+  const {loading, data, error, errorMessage} = state;
   useEffect(() => {
-    fetchData();
+    dispatch(getCommentListing());
   }, []);
 
-  return {fetchData};
+  return {loading, data, error, errorMessage};
 };
 export default useListingModel;
