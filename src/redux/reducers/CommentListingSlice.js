@@ -4,6 +4,7 @@ import {storeData} from '../../utils/StorageManager';
 const {createSlice} = require('@reduxjs/toolkit');
 const {getCommentListing} = require('../actions/CommentAction');
 
+// initial state
 const initialState = {
   loading: false,
   data: [],
@@ -14,6 +15,7 @@ const CommentListingSlice = createSlice({
   name: 'commentListing',
   initialState,
   reducers: {
+    //reducers for updating the state
     updatingData: (state, action) => {
       const {item: subitem} = action.payload;
       const updatedData = state.data.map(item =>
@@ -23,6 +25,7 @@ const CommentListingSlice = createSlice({
       storeData(StorageKey, updatedData);
     },
   },
+  //extra reducers for handling the api calling.
   extraReducers: builder => {
     builder
       .addCase(getCommentListing.pending, (state, action) => {
