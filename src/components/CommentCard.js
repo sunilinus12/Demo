@@ -3,12 +3,13 @@ import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {Rating} from 'react-native-ratings';
 import {getUniqueColorById} from '../utils/ColorManager'; // For non-repeating card colors
 
-export default function CommentCard({item}) {
+export default function CommentCard({item, onRatingPress = () => {}}) {
   const backgroundColor = getUniqueColorById(item.id);
   const [rating, setRating] = useState(0);
 
   const handleRatingCompleted = ratingValue => {
     setRating(ratingValue);
+    onRatingPress({...item, rating: ratingValue});
   };
 
   return (

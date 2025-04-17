@@ -1,17 +1,23 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native';
-import React, { useCallback } from 'react';
-import { useListingModel } from '../hooks';
-import { LoadingComponent } from '../components';
+import {FlatList, StyleSheet, Text, View} from 'react-native';
+import React, {useCallback} from 'react';
+import {useListingModel} from '../hooks';
+import {LoadingComponent} from '../components';
 import CommentCard from '../components/CommentCard';
 
 export default function ListingScreen() {
-  const { loading, data, error, errorMessage } = useListingModel();
+  const {loading, data, error, errorMessage, addingRatingData} =
+    useListingModel();
 
   const keyExtractor = useCallback(item => item.id.toString(), []);
 
+  const onRatingPress = item => {
+    addingRatingData(item);
+  };
   const renderItem = useCallback(
-    ({ item, index }) => <CommentCard item={item} index={index} />,
-    []
+    ({item, index}) => (
+      <CommentCard item={item} index={index} onRatingPress={onRatingPress} />
+    ),
+    [],
   );
 
   if (loading) return <LoadingComponent />;

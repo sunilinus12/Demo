@@ -8,7 +8,7 @@ export const getCommentListing = createAsyncThunk(
       let resp = await getUserListingModel();
       return resp;
     } catch (error) {
-      return thunkApi.rejectWithValue(error);
+      return thunkApi.rejectWithValue(error.message || 'Something went wrong');
     }
   },
 );

@@ -10,7 +10,15 @@ const initialState = {
 const CommentListingSlice = createSlice({
   name: 'commentListing',
   initialState,
-  reducers: {},
+  reducers: {
+    updatingData: (state, action) => {
+      const {item: subitem} = action.payload;
+      const updatedData = state.data.map(item =>
+        item.id === subitem.id ? {...item, ...subitem} : item,
+      );      
+      state.data = updatedData;
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(getCommentListing.pending, (state, action) => {
@@ -33,5 +41,5 @@ const CommentListingSlice = createSlice({
   },
 });
 
-const {} = CommentListingSlice.actions;
+export const {updatingData} = CommentListingSlice.actions;
 export default CommentListingSlice.reducer;
