@@ -18,10 +18,10 @@ export const getData = async key => {
     const jsonValue = await AsyncStorage.getItem(key); // Get the stored value as a string
     if (jsonValue !== null) {
       const value = JSON.parse(jsonValue); // Parse the JSON string back to an object
-    //   console.log('Retrieved data:', value);
+      //   console.log('Retrieved data:', value);
       return value; // Return the parsed value
     } else {
-    //   console.log('No data found for the key:', key);
+      //   console.log('No data found for the key:', key);
       return null; // Return null if no data is found
     }
   } catch (e) {
