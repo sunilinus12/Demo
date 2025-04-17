@@ -1,34 +1,61 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
-import {getUniqueColorById} from '../utils/ColorManager';
+import React, {useState} from 'react';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {Rating} from 'react-native-ratings';
+import {getUniqueColorById} from '../utils/ColorManager'; // For non-repeating card colors
 
-function CommentCard({item, index}) {
+export default function CommentCard({item}) {
   const backgroundColor = getUniqueColorById(item.id);
+  const [rating, setRating] = useState(0);
+
+  const handleRatingCompleted = ratingValue => {
+    setRating(ratingValue);
+  };
+
   return (
     <View style={[styles.card, {backgroundColor}]}>
       <Text style={styles.title}>{item.title}</Text>
       <Text style={styles.body}>{item.body}</Text>
+      <View style={[styles.ratingContainer, {backgroundColor}]}>
+        <Rating
+          type="star"
+          startingValue={rating}
+          imageSize={24}
+          onFinishRating={handleRatingCompleted}
+          showRating={false}
+          tintColor={backgroundColor} // ✅ this line makes the background of stars match the card
+        />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   card: {
+    padding: 15,
     margin: 10,
-    padding: 16,
-    borderRadius: 10,
-    elevation: 2,
+    borderRadius: 12,
+    elevation: 3,
   },
   title: {
-    fontSize: 16,
     fontWeight: 'bold',
+    fontSize: 16,
     marginBottom: 6,
-    textTransform: 'capitalize',
+    color: '#000',
   },
   body: {
     fontSize: 14,
     color: '#333',
   },
+  ratingContainer: {
+    marginTop: 10,
+    alignItems: 'flex-start',
+    padding: 5,
+    borderRadius: 5, // optional for rounded corners
+  },
+  thanksText: {
+    fontSize: 14,
+    color: 'green',
+    marginTop: 10,
+    fontStyle: 'italic',
+  },
 });
-
-export default React.memo(CommentCard); // 💡 wraps it in memo for optimization
