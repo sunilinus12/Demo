@@ -19,7 +19,7 @@ export default function CommentCard({item, onRatingPress = () => {}}) {
       <View style={[styles.ratingContainer, {backgroundColor}]}>
         <Rating
           type="star"
-          startingValue={rating}
+          startingValue={item.rating ?? rating}
           imageSize={24}
           onFinishRating={handleRatingCompleted}
           showRating={false}

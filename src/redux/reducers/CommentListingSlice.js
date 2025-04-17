@@ -1,3 +1,6 @@
+import {StorageKey} from '../../utils/Constants';
+import {storeData} from '../../utils/StorageManager';
+
 const {createSlice} = require('@reduxjs/toolkit');
 const {getCommentListing} = require('../actions/CommentAction');
 
@@ -15,8 +18,9 @@ const CommentListingSlice = createSlice({
       const {item: subitem} = action.payload;
       const updatedData = state.data.map(item =>
         item.id === subitem.id ? {...item, ...subitem} : item,
-      );      
+      );
       state.data = updatedData;
+      storeData(StorageKey, updatedData);
     },
   },
   extraReducers: builder => {
