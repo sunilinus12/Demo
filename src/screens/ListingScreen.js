@@ -5,17 +5,31 @@ import {LoadingComponent} from '../components';
 import CommentCard from '../components/CommentCard';
 
 export default function ListingScreen() {
-  const {loading, data, error, errorMessage, addingRatingData} =
-    useListingModel();
+  const {
+    loading,
+    data,
+    error,
+    errorMessage,
+    addingRatingData,
+    handleDeletingCommentData,
+  } = useListingModel();
 
   const keyExtractor = useCallback(item => item.id.toString(), []);
 
   const onRatingPress = item => {
     addingRatingData(item);
   };
+  const onDeletePress = item => {
+    handleDeletingCommentData(item);
+  };
   const renderItem = useCallback(
     ({item, index}) => (
-      <CommentCard item={item} index={index} onRatingPress={onRatingPress} />
+      <CommentCard
+        item={item}
+        index={index}
+        onRatingPress={onRatingPress}
+        onDeletePress={onDeletePress}
+      />
     ),
     [],
   );

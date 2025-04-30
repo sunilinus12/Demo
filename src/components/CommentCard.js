@@ -3,13 +3,20 @@ import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {Rating} from 'react-native-ratings';
 import {getUniqueColorById} from '../utils/ColorManager'; // For non-repeating card colors
 
-export default function CommentCard({item, onRatingPress = () => {}}) {
+export default function CommentCard({
+  item,
+  onRatingPress = () => {},
+  onDeletePress = () => {},
+}) {
   const backgroundColor = getUniqueColorById(item.id);
   const [rating, setRating] = useState(0);
 
   const handleRatingCompleted = ratingValue => {
     setRating(ratingValue);
     onRatingPress({...item, rating: ratingValue});
+  };
+  const handleLocalDelete = () => {
+    onDeletePress(item);
   };
 
   return (
@@ -26,6 +33,9 @@ export default function CommentCard({item, onRatingPress = () => {}}) {
           tintColor={backgroundColor} // ✅ this line makes the background of stars match the card
         />
       </View>
+      <TouchableOpacity onPress={handleLocalDelete}>
+        <Text>Delete</Text>
+      </TouchableOpacity>
     </View>
   );
 }

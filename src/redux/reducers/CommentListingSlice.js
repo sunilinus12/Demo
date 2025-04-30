@@ -24,6 +24,12 @@ const CommentListingSlice = createSlice({
       state.data = updatedData;
       storeData(StorageKey, updatedData);
     },
+    deletingComment: (state, action) => {
+      const {item} = action.payload;
+      const updatedData = state.data.filter(e => e.id != item.id);
+      state.data = updatedData;
+      storeData(StorageKey, updatedData);
+    },
   },
   //extra reducers for handling the api calling.
   extraReducers: builder => {
@@ -48,5 +54,5 @@ const CommentListingSlice = createSlice({
   },
 });
 
-export const {updatingData} = CommentListingSlice.actions;
+export const {updatingData, deletingComment} = CommentListingSlice.actions;
 export default CommentListingSlice.reducer;

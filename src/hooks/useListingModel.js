@@ -1,7 +1,10 @@
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {getCommentListing} from '../redux/actions/CommentAction';
-import {updatingData} from '../redux/reducers/CommentListingSlice';
+import {
+  deletingComment,
+  updatingData,
+} from '../redux/reducers/CommentListingSlice';
 
 // hook for using login with view
 const useListingModel = () => {
@@ -16,6 +19,17 @@ const useListingModel = () => {
     dispatch(updatingData({item: item}));
   };
 
-  return {loading, data, error, errorMessage, addingRatingData};
+  const handleDeletingCommentData = item => {
+    dispatch(deletingComment({item: item}));
+  };
+
+  return {
+    loading,
+    data,
+    error,
+    errorMessage,
+    addingRatingData,
+    handleDeletingCommentData,
+  };
 };
 export default useListingModel;
